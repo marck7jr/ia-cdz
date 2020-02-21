@@ -1,0 +1,26 @@
+﻿<div class="battle-view-item">
+    <h1>Batalha na Casa de @Battle.GoldKnight?.Constellation</h1>
+    <div>
+        @foreach (var knight in Battle?.BronzeKnights)
+        {
+            <div class="knight-view-pic">
+                <img src="@knight?.ProfileImg" />
+            </div>
+        }
+    </div>
+    <h3>VS</h3>
+    <div>
+        <div class="knight-view-pic">
+            <img src="@Battle.GoldKnight?.ProfileImg" />
+        </div>
+    </div>
+    <div class="battle-view-calc">
+        <p>Batalha concluída em: </p>
+        <strong>@Battle.CalculateEstimatedTime() min(s)</strong>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Battle Battle { get; set; }
+}

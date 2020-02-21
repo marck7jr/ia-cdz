@@ -1,0 +1,93 @@
+﻿@use "sass:color";
+// Global Variables
+@import "_global.scss";
+// Components
+@import "components/_battle-view.scss";
+@import "components/_knight-view.scss";
+@import "components/_map-view.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+    transition: all .2s;
+}
+
+html, body {
+    background: $neumorphismBackground;
+}
+
+main {
+    display: flex;
+    flex-flow: column;
+
+    .ui {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+
+        button {
+            align-self: center;
+            box-shadow: $neumorphismBoxShadow;
+            border: none;
+            border-radius: 100%;
+            margin: 2em;
+            outline: none;
+            padding: 4em;
+
+            &[running] {
+                box-shadow: $neumorphismBoxShadowInset;
+
+                svg {
+                    fill: $colorRevealBackground;
+                }
+            }
+
+            &:active {
+                box-shadow: $neumorphismBoxShadowInset;
+            }
+
+            svg {
+                height: 10vh;
+                width: 10vh;
+            }
+        }
+    }
+
+    .result-view {
+        align-items: center;
+        box-shadow: $neumorphismBoxShadow;
+        display: flex;
+        flex-flow: column;
+        padding: 2em;
+
+        .result-view-calc {
+            border-bottom: solid 1pt;
+            align-items: baseline;
+            display: flex;
+            flex-flow: row;
+
+            strong {
+                margin: .5em;
+            }
+        }
+    }
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}

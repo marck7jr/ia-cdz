@@ -1,0 +1,57 @@
+﻿@import "../_global.scss";
+
+.knight-view {
+    .knight-view-container {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        margin: 2em;
+
+        section {
+            #gold {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+
+                div[th="0"]{
+                    grid-column: 1;
+                }
+
+                div[th="1"]{
+                    grid-column: 2;
+                }
+            }
+        }
+
+        .knight-view-item {
+            margin: 8pt;
+
+            div {
+                display: flex;
+                flex-flow: row;
+
+                h3 {
+                    margin: 2pt 0;
+                }
+
+                p {
+                    color: darkred;
+                    padding: 2pt;
+                }
+            }
+
+
+            input[type="number"] {
+                border: none;
+                border-radius: 4pt;
+                box-shadow: $neumorphismBoxShadow;
+                outline: none;
+                margin: 2pt 0;
+                padding: .5em;
+
+                &:focus {
+                    box-shadow: $neumorphismBoxShadowInset;
+                }
+            }
+        }
+    }
+}

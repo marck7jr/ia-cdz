@@ -1,0 +1,10 @@
+﻿$colorRevealBackground: rgba(cyan, .4);
+$colorRevealBoxShadow: 0 0 1em rgba($colorRevealBackground, .8);
+$colorTerrainMountainous: rgba(black, .6);
+$colorTerrainRocky: rgba(black, .3);
+$colorTerrainPlain: rgba(black, .1);
+$colorGoldSaintTemple: rgba(#D4AF37, 1);
+$colorGoldSaintTempleBoxShadow: 0 0 4em rgba($colorGoldSaintTemple, 1);
+$neumorphismBackground: rgba(black, .06);
+$neumorphismBoxShadow: -.5em -.5em 1em rgba(white, .5), .5em .5em 1em rgba(black, .2);
+$neumorphismBoxShadowInset: $neumorphismBoxShadow inset;

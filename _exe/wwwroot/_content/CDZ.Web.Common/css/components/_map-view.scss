@@ -1,0 +1,84 @@
+﻿@use "sass:color";
+@import "../_global.scss";
+
+@mixin endpoint($color) {
+    background: rgba($color, .8);
+    box-shadow: 0 0 1em rgba($color, .6);
+}
+
+.map-view {
+    display: flex;
+    flex-flow: column;
+    margin: 2em;
+
+    .map-view-settings {
+        display: flex;
+        flex-flow: column;
+        margin-bottom: 8pt;
+
+        label {
+            font-weight: bold;
+        }
+    }
+
+    .map-view-container {
+        align-self: center;
+        box-shadow: $neumorphismBoxShadow;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: repeat(42, 1fr);
+        padding: 1em;
+
+        .map-view-item {
+            height: 10pt;
+            width: 10pt;
+            margin: .5px;
+
+
+            &[terrain="0"] {
+                @include endpoint(red);
+            }
+
+            @for $i from 1 through 12 {
+                &[terrain="#{$i}"] {
+                    background: color.adjust($colorGoldSaintTemple, $lightness: +80%);
+
+                    svg {
+                        box-shadow: $colorGoldSaintTempleBoxShadow;
+                        fill: color.adjust($colorGoldSaintTemple, $lightness: -20%);
+                    }
+                }
+            }
+
+            &[terrain="13"] {
+                @include endpoint(green);
+            }
+
+            &[terrain="14"] {
+                background: $colorTerrainMountainous;
+            }
+
+            &[terrain="15"] {
+                background: $colorTerrainPlain;
+            }
+
+            &[terrain="16"] {
+                background: $colorTerrainRocky;
+            }
+
+            &[reveal] {
+                box-shadow: $colorRevealBoxShadow, $colorRevealBoxShadow inset;
+            }
+        }
+    }
+
+    .map-view-result {
+        display: flex;
+        flex-flow: row;
+        margin: 4pt 50%;
+
+        p {
+            color: green;
+        }
+    }
+}

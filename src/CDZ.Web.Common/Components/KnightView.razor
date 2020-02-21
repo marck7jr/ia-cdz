@@ -1,0 +1,157 @@
+﻿<div class="knight-view">
+    <div class="knight-view-container">
+        <section>
+            <h1>Bronze</h1>
+            <div id="bronze">
+                @foreach (var knight in BronzeKnights)
+                {
+                    <KnightViewItem Knight="knight" />
+                }
+            </div>
+        </section>
+        <section>
+            <h1>Ouro</h1>
+            <div id="gold">
+                <div th="0">
+                    @for (int i = 0; i < GoldKnights.Count / 2; i++)
+                    {
+                        <KnightViewItem Knight="GoldKnights[i]" />
+                    }
+                </div>
+                <div th="1">
+                    @for (int i = 6; i < GoldKnights.Count; i++)
+                    {
+                        <KnightViewItem Knight="GoldKnights[i]" />
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@code {
+
+    public List<Knight> GoldKnights = new List<Knight>
+    {
+        new Knight
+        {
+            Name = "Mu",
+            Constellation = "Áries",
+            Cosmo = 50,
+        },
+        new Knight
+        {
+            Name = "Aldebaran",
+            Constellation = "Touro",
+            Cosmo = 55,
+        },
+        new Knight
+        {
+            Name = "Saga",
+            Constellation = "Gêmeos",
+            Cosmo = 60,
+        },
+        new Knight
+        {
+            Name = "Mascára da Morte",
+            Constellation = "Câncer",
+            Cosmo = 70,
+        },
+        new Knight
+        {
+            Name = "Aiolia",
+            Constellation = "Leão",
+            Cosmo = 75,
+        },
+        new Knight
+        {
+            Name = "Shaka",
+            Constellation = "Virgem",
+            Cosmo = 80,
+        },
+        new Knight
+        {
+            Name = "Dohko",
+            Constellation = "Libra",
+            Cosmo = 85,
+        },
+        new Knight
+        {
+            Name = "Milo",
+            Constellation = "Escorpião",
+            Cosmo = 90,
+        },
+        new Knight
+        {
+            Name = "Aiolos",
+            Constellation = "Sagitário",
+            Cosmo = 95,
+        },
+        new Knight
+        {
+            Name = "Shura",
+            Constellation = "Capricórnio",
+            Cosmo = 100,
+        },
+        new Knight
+        {
+            Name = "Camus",
+            Constellation = "Aquário",
+            Cosmo = 110,
+        },
+        new Knight
+        {
+            Name = "Afrodite",
+            Constellation = "Peixes",
+            Cosmo = 120,
+        },
+    };
+    public List<Knight> BronzeKnights = new List<Knight>
+{
+        new Knight
+        {
+            Name = "Seiya",
+            Constellation = "Pégasus",
+            Cosmo = 1.5,
+        },
+        new Knight
+        {
+            Name = "Shiryu",
+            Constellation = "Dragão",
+            Cosmo = 1.4,
+        },
+        new Knight
+        {
+            Name = "Hyoga",
+            Constellation = "Cisne",
+            Cosmo = 1.3,
+        },
+        new Knight
+        {
+            Name = "Shun",
+            Constellation = "Andrômeda",
+            Cosmo = 1.2,
+        },
+        new Knight
+        {
+            Name = "Ikki",
+            Constellation = "Fênix",
+            Cosmo = 1.1,
+        }
+    };
+
+    public BattleIA BattleIA;
+    public Gene BattlesIAResult = new Gene();
+
+    protected override void OnInitialized()
+    {
+        BattleIA = new BattleIA(GoldKnights, BronzeKnights);
+    }
+
+    public async Task<Gene> StartAsync(double mapEstimatedTimeResult)
+    {
+        BattlesIAResult = await BattleIA.GetResultAsync(mapEstimatedTimeResult);
+        StateHasChanged();
+        return BattlesIAResult;
+    }
+}

@@ -1,0 +1,13 @@
+﻿<div class="knight-view-item">
+    <div>
+        <h3>@Knight.Name</h3>
+    </div>
+
+    <p>@Knight.Constellation</p>
+    <input type="number" @bind="Knight.Cosmo" />
+</div>
+
+@code {
+    [Parameter]
+    public Knight Knight { get; set; }
+}

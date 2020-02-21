@@ -1,0 +1,48 @@
+﻿@page "/"
+
+<div class="ui">
+    <KnightView @ref="KnightView" />
+    <button @onclick="StartAsync" running="@Started" title="Iniciar simulação.">@_playSvg</button>
+    <MapView @ref="MapView" />
+</div>
+<div class="battle-view">
+    @foreach(var battle in _resultBattle.Battles)
+    {
+        <BattleViewItem Battle="@battle"/>
+    }
+</div>
+<div class="result-view">
+    <h1>Total</h1>
+    <div class="result-view-calc">
+        <strong>@_resultMap</strong>
+        <h3>+</h3>
+        <strong>@_resultBattle.EstimatedTotalTime</strong>
+        <h3>=</h3>
+    </div>
+    <div class="result-view-total">
+        <h1>@(_resultMap + _resultBattle.EstimatedTotalTime)</h1>
+    </div>
+</div>
+
+@code {
+    private MarkupString _playSvg;
+    private Gene _resultBattle = new Gene();
+    private double _resultMap { get; set; }
+
+    public KnightView KnightView { get; set; }
+    public MapView MapView { get; set; }
+    public bool Started { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _playSvg = (MarkupString)await AssemblyHelper.GetEmbeddedResourceAsync("CDZ.Common.Assets.Svg.Museum.svg");
+    }
+
+    public async Task StartAsync()
+    {
+        Started = true;
+        _resultMap = await MapView.StartAsync();
+        _resultBattle = await KnightView.StartAsync(_resultMap);
+        StateHasChanged();
+    }
+}

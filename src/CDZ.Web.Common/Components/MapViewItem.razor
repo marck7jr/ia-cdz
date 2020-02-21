@@ -1,0 +1,37 @@
+﻿@inherits _ObservableComponent
+
+<div class="map-view-item" terrain="@Terrain" X="@X" Y="@Y" reveal="@Reveal">
+    @_templeSvg
+</div>
+
+@code {
+    private bool reveal = false;
+
+    [Parameter]
+    public int X { get; set; }
+
+    [Parameter]
+    public int Y { get; set; }
+
+    [Parameter]
+    public int Terrain { get; set; }
+
+    [Parameter]
+    public bool Reveal { get => reveal; set => Set(ref reveal, value); }
+
+    private MarkupString _templeSvg;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Terrain > 0 && Terrain < 13)
+        {
+            _templeSvg = (MarkupString)await AssemblyHelper.GetEmbeddedResourceAsync("CDZ.Common.Assets.Svg.Temple.svg");
+        }
+    }
+
+    public void ShowReveal()
+    {
+        Reveal = true;
+    }
+
+}

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Svg\Museum.svg" />
+    <None Remove="Assets\Svg\Temple.svg" />
+    <None Remove="Assets\Text\Map.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Svg\Museum.svg" />
+    <EmbeddedResource Include="Assets\Svg\Temple.svg" />
+    <EmbeddedResource Include="Assets\Text\Map.txt" />
+  </ItemGroup>
+
+</Project>

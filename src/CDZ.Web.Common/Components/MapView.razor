@@ -1,0 +1,58 @@
+﻿<div class="map-view">
+    <div class="map-view-settings">
+        <label for="velocity">Velocidade</label>
+        <input id="velocity" type="range" @bind="VelocityAnimation" @bind:event="oninput" step="10" min="0" max="3000" />
+        <p>@VelocityAnimation ms</p>
+    </div>
+    <div class="map-view-container">
+        @for (int x = 0; x < Map.Tiles.GetLength(0); x++)
+        {
+            @for (int y = 0; y < Map.Tiles.GetLength(0); y++)
+            {
+                int _x = x, _y = y;
+                <MapViewItem @ref="MapViewItems[_x, _y]" Terrain="Map.Tiles[x, y]" X="x" Y="y" />
+            }
+        }
+    </div>
+    <div class="map-view-result">
+        <h1>@TotalTime</h1>
+        <p>+@CurrentTime</p>
+    </div>
+</div>
+
+
+@code {
+    public MapViewItem[,] MapViewItems { get; set; }
+    public Map Map { get; set; }
+    public PathIA PathIA { get; set; }
+    public double CurrentTime { get; set; }
+    public double TotalTime { get; set; }
+    public int VelocityAnimation { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Map = await new Map().BuildAsync();
+        MapViewItems = new MapViewItem[Map.Tiles.GetLength(0), Map.Tiles.GetLength(0)];
+        PathIA = new PathIA(Map.Tiles);
+    }
+
+    public async Task<double> StartAsync()
+    {
+        var resultPath = PathIA.Find();
+        var battleFoundedIndex = 0;
+        foreach (var item in resultPath.Points)
+        {
+            MapViewItems[item.X, item.Y].ShowReveal();
+            CurrentTime = PathIA.CalculateTime(item);
+            if (CurrentTime == 0)
+            {
+                battleFoundedIndex++;
+            }
+            TotalTime += CurrentTime;
+            StateHasChanged();
+            await Task.Delay(VelocityAnimation);
+        }
+
+        return TotalTime;
+    }
+}
